@@ -534,41 +534,71 @@ function playTone(frequency, duration, type = 'sine', volume = 0.1) {
   }
 }
 
-// Melodía romántica: reproduce rosas.mpeg con fallback al sintetizador Web Audio API
+// Melodía romántica: reproduce girasoles.mpeg al inicio y con botón de control
 function initAudioSystem() {
   const musicBtn = document.getElementById('music-toggle-btn');
   const audioEl = document.getElementById('bouquet-audio');
-  if (!musicBtn) return;
+  if (!musicBtn || !audioEl) return;
 
-  musicBtn.addEventListener('click', () => {
-    if (!isMusicPlaying) {
+  const playMusic = () => {
+    audioEl.play().then(() => {
       isMusicPlaying = true;
       musicBtn.classList.add('playing');
       musicBtn.querySelector('.btn-text').textContent = 'Pausar';
       musicBtn.querySelector('.btn-icon').textContent = '⏸️';
+    }).catch(() => {
+      // Fallback a sintetizador si hay restricción
+      getAudioContext();
+      startAmbientMusic();
+      isMusicPlaying = true;
+      musicBtn.classList.add('playing');
+      musicBtn.querySelector('.btn-text').textContent = 'Pausar';
+      musicBtn.querySelector('.btn-icon').textContent = '⏸️';
+    });
+  };
 
-      if (audioEl) {
-        audioEl.play().catch(() => {
-          // Fallback a sintetizador si el archivo no reproduce
-          getAudioContext();
-          startAmbientMusic();
-        });
-      } else {
-        getAudioContext();
-        startAmbientMusic();
-      }
+  const pauseMusic = () => {
+    isMusicPlaying = false;
+    musicBtn.classList.remove('playing');
+    musicBtn.querySelector('.btn-text').textContent = 'Música';
+    musicBtn.querySelector('.btn-icon').textContent = '🎵';
+    audioEl.pause();
+    stopAmbientMusic();
+  };
+
+  // Botón de control manual
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isMusicPlaying) {
+      pauseMusic();
     } else {
-      isMusicPlaying = false;
-      musicBtn.classList.remove('playing');
-      musicBtn.querySelector('.btn-text').textContent = 'Música';
-      musicBtn.querySelector('.btn-icon').textContent = '🎵';
-
-      if (audioEl) {
-        audioEl.pause();
-      }
-      stopAmbientMusic();
+      playMusic();
     }
   });
+
+  // Intentar reproducción automática al inicio
+  const startAutoplay = () => {
+    audioEl.play().then(() => {
+      isMusicPlaying = true;
+      musicBtn.classList.add('playing');
+      musicBtn.querySelector('.btn-text').textContent = 'Pausar';
+      musicBtn.querySelector('.btn-icon').textContent = '⏸️';
+    }).catch(() => {
+      // Si el navegador bloquea el autoplay inicial, activar al primer toque/clic
+      const onFirstInteract = () => {
+        if (!isMusicPlaying) {
+          playMusic();
+        }
+        window.removeEventListener('click', onFirstInteract);
+        window.removeEventListener('touchstart', onFirstInteract);
+      };
+      window.addEventListener('click', onFirstInteract, { once: true });
+      window.addEventListener('touchstart', onFirstInteract, { once: true });
+    });
+  };
+
+  // Pequeña espera para sincronizar con la floración inicial
+  setTimeout(startAutoplay, 300);
 }
 
 // Progresión de acordes romántica y dulce (Estilo Floricienta / Flores Amarillas)

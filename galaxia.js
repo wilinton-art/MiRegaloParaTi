@@ -165,8 +165,20 @@ function resize() {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
   centerX = width / 2;
-  // Centro de la galaxia en perspectiva (ligeramente más abajo del medio)
-  centerY = height * 0.58;
+  const isMobile = width < 500;
+  centerY = isMobile ? height * 0.62 : height * 0.58;
+
+  initBackgroundStars();
+  initGalaxyParticles();
+  initConstellation();
+
+  // Si la constelación ya estaba desplegada, fijar sus partículas a las coordenadas finales
+  if (currentState >= STATES.FLOWER_CONSTELLATION) {
+    constellationParticles.forEach(p => {
+      p.curX = p.targetX;
+      p.curY = p.targetY;
+    });
+  }
 }
 
 function startSequence() {
@@ -264,31 +276,45 @@ function initGalaxyParticles() {
 }
 
 /* ==========================================================================
-   CONSTELACIÓN FLORAL DE ESTRELLAS (EN LO ALTO DEL CIELO CÓSMICO)
+   CONSTELACIÓN FLORAL DE ESTRELLAS (GIRASOL CELESTIAL DEFINIDO Y RADIANTE)
+   Recrea con fidelidad la flor de estrellas de la captura de TikTok
    ========================================================================== */
 
 function initConstellation() {
   constellationParticles = [];
-  const petalCount = 6;
-  const totalStars = 1400;
+  const isMobile = width < 500;
 
-  // Centro de la flor celeste (justo encima de la galaxia)
+  // Centro y tamaño proporcional
   const constCenterX = centerX;
-  const constCenterY = height * 0.26;
-  const baseSize = Math.min(width, height) * 0.17;
+  const constCenterY = isMobile ? Math.max(120, height * 0.20) : height * 0.24;
+  const baseSize = isMobile ? Math.min(width * 0.38, 145) : Math.min(width, height) * 0.175;
 
-  for (let i = 0; i < totalStars; i++) {
-    // Distribución por pétalos usando ecuación de rosa polar
-    const theta = Math.random() * Math.PI * 2;
-    const rScale = Math.abs(Math.cos((petalCount / 2) * theta));
-    const maxR = baseSize * (0.35 + 0.65 * rScale);
-    const r = Math.pow(Math.random(), 0.7) * maxR;
+  const coreRadius = baseSize * 0.30;
+  const petalLength = baseSize * 0.75;
+  const maxPetalRadius = coreRadius + petalLength;
 
-    const x = constCenterX + r * Math.cos(theta) + (Math.random() * 6 - 3);
-    const y = constCenterY + r * Math.sin(theta) * 0.95 + (Math.random() * 6 - 3);
+  // 1. DISCO CENTRAL DEL GIRASOL (Espiral de Fibonacci / Semillas estelares)
+  const coreParticlesCount = isMobile ? 380 : 550;
+  const phi = (1 + Math.sqrt(5)) / 2; // Razón áurea
+  const goldenAngle = Math.PI * 2 * (1 - 1 / phi); // ~137.5 grados
 
-    // Las partículas del centro son más densas y brillantes
-    const isCore = r < baseSize * 0.25;
+  for (let i = 0; i < coreParticlesCount; i++) {
+    const rNorm = Math.sqrt((i + 1) / coreParticlesCount);
+    const r = rNorm * coreRadius;
+    const theta = i * goldenAngle;
+
+    const x = constCenterX + r * Math.cos(theta) + (Math.random() * 2 - 1);
+    const y = constCenterY + r * Math.sin(theta) + (Math.random() * 2 - 1);
+
+    // Color del núcleo: ámbar dorado profundo en el centro, destellos oro en el borde
+    let color;
+    if (rNorm < 0.35) {
+      color = Math.random() > 0.4 ? '#ffa000' : '#ff8f00';
+    } else if (rNorm < 0.75) {
+      color = Math.random() > 0.3 ? '#ffd700' : '#ffb300';
+    } else {
+      color = Math.random() > 0.25 ? '#ffffff' : '#fff59d'; // Borde muy brillante
+    }
 
     constellationParticles.push({
       x: x,
@@ -297,11 +323,130 @@ function initConstellation() {
       targetY: y,
       curX: constCenterX,
       curY: centerY,
-      r: isCore ? (Math.random() * 2.2 + 1.0) : (Math.random() * 1.8 + 0.6),
-      color: isCore ? '#ffffff' : (Math.random() > 0.35 ? '#ffd700' : '#fff9c4'),
+      r: rNorm > 0.85 ? (Math.random() * 1.8 + 0.9) : (Math.random() * 1.5 + 0.6),
+      color: color,
       alpha: Math.random() * 0.8 + 0.2,
-      twinkle: 0.02 + Math.random() * 0.04
+      twinkle: 0.02 + Math.random() * 0.04,
+      isCore: true
     });
+  }
+
+  // 2. PÉTALOS RADIALES DE GIRASOL (12 pétalos primarios + 12 secundarios)
+  // Cada pétalo tiene forma de lanza botánica: punta afilada, cuerpo ancho y base estrecha
+  const primaryPetalCount = 12;
+  const secondaryPetalCount = 12;
+
+  // Función generadora de partículas para un pétalo
+  const generatePetalParticles = (petalIndex, totalPetals, lengthFactor, widthAngleSpread, layer) => {
+    const petalAngle = (Math.PI * 2 / totalPetals) * petalIndex + (layer === 2 ? Math.PI / totalPetals : 0);
+    const pLength = petalLength * lengthFactor;
+    const stepsAlong = isMobile ? 18 : 24;
+
+    for (let step = 0; step <= stepsAlong; step++) {
+      const u = step / stepsAlong; // 0 = base, 1 = punta
+      if (u < 0.08) continue; // No tocar el centro exacto
+
+      const currentDist = coreRadius + u * pLength;
+      // Ancho máximo en el medio (u = 0.55), afilado hacia la punta (u = 1.0)
+      const currentWidthAngle = widthAngleSpread * Math.sin(u * Math.PI) * (1 - u * 0.3);
+
+      // Partículas en el contorno del pétalo (borde izquierdo y derecho nítido)
+      [-1, 1].forEach(side => {
+        const borderAngle = petalAngle + side * currentWidthAngle;
+        const x = constCenterX + currentDist * Math.cos(borderAngle) + (Math.random() * 2 - 1);
+        const y = constCenterY + currentDist * Math.sin(borderAngle) + (Math.random() * 2 - 1);
+
+        constellationParticles.push({
+          x: x,
+          y: y,
+          targetX: x,
+          targetY: y,
+          curX: constCenterX,
+          curY: centerY,
+          r: Math.random() * 1.7 + 0.8,
+          color: u > 0.8 ? '#ffffff' : '#ffd700',
+          alpha: 0.85 + Math.random() * 0.15,
+          twinkle: 0.025 + Math.random() * 0.035,
+          isEdge: true
+        });
+      });
+
+      // Partículas interiores del pétalo (relleno dorado)
+      const fillCount = Math.floor(currentWidthAngle * 35);
+      for (let f = 0; f < fillCount; f++) {
+        const offsetFraction = (Math.random() * 2 - 1) * 0.85;
+        const fillAngle = petalAngle + offsetFraction * currentWidthAngle;
+        const fillDist = currentDist + (Math.random() * 4 - 2);
+
+        const x = constCenterX + fillDist * Math.cos(fillAngle);
+        const y = constCenterY + fillDist * Math.sin(fillAngle);
+
+        const isTip = u > 0.85;
+        const color = isTip 
+          ? (Math.random() > 0.4 ? '#fff9c4' : '#ffd700')
+          : (Math.random() > 0.5 ? '#ffd700' : '#ffa000');
+
+        constellationParticles.push({
+          x: x,
+          y: y,
+          targetX: x,
+          targetY: y,
+          curX: constCenterX,
+          curY: centerY,
+          r: isTip ? (Math.random() * 1.8 + 0.7) : (Math.random() * 1.4 + 0.5),
+          color: color,
+          alpha: Math.random() * 0.75 + 0.25,
+          twinkle: 0.02 + Math.random() * 0.035,
+          isFill: true
+        });
+      }
+
+      // Vena central del pétalo (hilo de estrellas luminosas)
+      if (step % 2 === 0) {
+        const x = constCenterX + currentDist * Math.cos(petalAngle);
+        const y = constCenterY + currentDist * Math.sin(petalAngle);
+        constellationParticles.push({
+          x: x,
+          y: y,
+          targetX: x,
+          targetY: y,
+          curX: constCenterX,
+          curY: centerY,
+          r: Math.random() * 1.9 + 0.8,
+          color: '#ffffff',
+          alpha: 0.9,
+          twinkle: 0.04,
+          isVein: true
+        });
+      }
+    }
+
+    // Estrella extra luminosa en la punta del pétalo
+    const tipX = constCenterX + (coreRadius + pLength) * Math.cos(petalAngle);
+    const tipY = constCenterY + (coreRadius + pLength) * Math.sin(petalAngle);
+    constellationParticles.push({
+      x: tipX,
+      y: tipY,
+      targetX: tipX,
+      targetY: tipY,
+      curX: constCenterX,
+      curY: centerY,
+      r: Math.random() * 2.5 + 1.2,
+      color: '#ffffff',
+      alpha: 1.0,
+      twinkle: 0.05,
+      isTipStar: true
+    });
+  };
+
+  // Generar capa exterior de pétalos (más anchos y largos)
+  for (let i = 0; i < primaryPetalCount; i++) {
+    generatePetalParticles(i, primaryPetalCount, 1.0, 0.15, 1);
+  }
+
+  // Generar capa interior de pétalos (intercalados para volumen y frondosidad)
+  for (let j = 0; j < secondaryPetalCount; j++) {
+    generatePetalParticles(j, secondaryPetalCount, 0.86, 0.12, 2);
   }
 }
 
@@ -557,42 +702,92 @@ function renderLightPillar(progress) {
   ctx.restore();
 }
 
-// Gran Constelación Celestial en forma de Flor de Girasol (WhatsApp Image 1)
+// Gran Constelación Celestial en forma de Girasol Realista y Definido
 function renderFlowerConstellation(progress) {
-  if (progress <= 0) return;
+  if (progress <= 0 || constellationParticles.length === 0) return;
 
+  const isMobile = width < 500;
+  const constCenterX = centerX;
+  const constCenterY = isMobile ? Math.max(120, height * 0.20) : height * 0.24;
+  const baseSize = isMobile ? Math.min(width * 0.38, 145) : Math.min(width, height) * 0.175;
+  const coreRadius = baseSize * 0.30;
+  const maxRadius = baseSize * 1.05;
+
+  ctx.save();
+
+  // 1. Aura cósmica de fondo del girasol (resplandor celestial cálido)
+  const auraGrad = ctx.createRadialGradient(constCenterX, constCenterY, coreRadius * 0.3, constCenterX, constCenterY, maxRadius * 1.25);
+  auraGrad.addColorStop(0, 'rgba(255, 215, 0, ' + (0.35 * progress) + ')');
+  auraGrad.addColorStop(0.35, 'rgba(255, 170, 0, ' + (0.22 * progress) + ')');
+  auraGrad.addColorStop(0.75, 'rgba(255, 120, 0, ' + (0.08 * progress) + ')');
+  auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+  ctx.beginPath();
+  ctx.arc(constCenterX, constCenterY, maxRadius * 1.25, 0, Math.PI * 2);
+  ctx.fillStyle = auraGrad;
+  ctx.fill();
+
+  // 2. Halo del ojo central del girasol (disco oscuro con borde dorado resplandeciente)
+  const coreGrad = ctx.createRadialGradient(constCenterX, constCenterY, 0, constCenterX, constCenterY, coreRadius);
+  coreGrad.addColorStop(0, 'rgba(45, 20, 5, ' + (0.85 * progress) + ')');
+  coreGrad.addColorStop(0.75, 'rgba(30, 12, 2, ' + (0.75 * progress) + ')');
+  coreGrad.addColorStop(1, 'rgba(255, 215, 0, ' + (0.6 * progress) + ')');
+
+  ctx.beginPath();
+  ctx.arc(constCenterX, constCenterY, coreRadius, 0, Math.PI * 2);
+  ctx.fillStyle = coreGrad;
+  ctx.fill();
+
+  // 3. Renderizado de cada partícula estelar del girasol
   constellationParticles.forEach(p => {
-    // Animación de despliegue desde el haz de luz
     p.curX += (p.targetX - p.curX) * 0.08;
     p.curY += (p.targetY - p.curY) * 0.08;
 
     p.alpha += p.twinkle;
-    if (p.alpha > 1 || p.alpha < 0.2) p.twinkle = -p.twinkle;
+    if (p.alpha > 1 || p.alpha < 0.25) p.twinkle = -p.twinkle;
 
     ctx.beginPath();
     ctx.arc(p.curX, p.curY, p.r, 0, Math.PI * 2);
     ctx.fillStyle = p.color;
-    ctx.globalAlpha = Math.max(0.1, Math.min(1, p.alpha)) * progress;
-    ctx.shadowColor = '#ffd700';
-    ctx.shadowBlur = 8;
+    ctx.globalAlpha = Math.max(0.15, Math.min(1, p.alpha)) * progress;
+
+    if (p.isEdge || p.isTipStar) {
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 10;
+    } else {
+      ctx.shadowColor = '#ffd700';
+      ctx.shadowBlur = 6;
+    }
+
     ctx.fill();
     ctx.shadowBlur = 0;
     ctx.globalAlpha = 1.0;
   });
+
+  ctx.restore();
 }
 
-// Actualización de posición de las frases y flores orbitando
+// Actualización de posición de las frases y flores orbitando (100% Responsivo Móvil)
 function updateOrbitElementsPositions() {
+  const isMobile = width < 500;
+  // Factor de compresión orbital según ancho disponible en el teléfono
+  const scaleX = isMobile ? Math.min((width * 0.44) / 470, 0.45) : 1;
+  const scaleY = isMobile ? 0.62 : 1;
+
   orbitDomElements.forEach(item => {
     const data = item.data;
     data.angle += data.speed;
 
-    const x = centerX + Math.cos(data.angle) * data.radiusX;
-    const y = centerY + Math.sin(data.angle) * data.radiusY;
+    const rx = data.radiusX * scaleX;
+    const ry = data.radiusY * scaleY;
+
+    const x = centerX + Math.cos(data.angle) * rx;
+    const y = centerY + Math.sin(data.angle) * ry;
 
     // Escala y brillo según profundidad orbital (frente vs fondo)
     const depth = Math.sin(data.angle); // -1 (fondo) a 1 (frente)
-    const scale = 0.82 + (depth + 1) * 0.18;
+    const baseScale = isMobile ? 0.72 : 0.85;
+    const scale = baseScale + (depth + 1) * (isMobile ? 0.14 : 0.18);
     const opacity = 0.55 + (depth + 1) * 0.25;
     const zIndex = Math.round((depth + 1) * 10) + 10;
 
