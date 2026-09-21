@@ -1,0 +1,558 @@
+/* ==========================================================================
+   GALAXIA DORADA DE FLORES AMARILLAS - ESTILOS
+   Inspirado en la experiencia cósmica viral con dedicatoria a Thalia
+   ========================================================================== */
+
+:root {
+  --cosmic-bg: #030308;
+  --gold-neon: #ffd700;
+  --gold-glow: #ffb700;
+  --gold-bright: #fff5b8;
+  --gold-dark: #b8860b;
+  --font-cursive: 'Caveat', 'Dancing Script', cursive;
+  --font-text: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--cosmic-bg);
+  font-family: var(--font-text);
+  color: #ffffff;
+  position: relative;
+}
+
+/* Canvas del Universo Cósmico */
+#galaxy-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE NAVEGACIÓN
+   ========================================================================== */
+
+.top-nav {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: all;
+}
+
+.nav-right-group {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(18, 15, 28, 0.75);
+  border: 1.5px solid rgba(255, 215, 0, 0.4);
+  color: #fff8e1;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 215, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--gold-neon);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.45);
+}
+
+.nav-btn.playing {
+  border-color: #00e676;
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+}
+
+/* ==========================================================================
+   TÍTULO SUPERIOR BRILLANTE (ESTILO TIKTOK)
+   ========================================================================== */
+
+.galaxy-header {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 20;
+  pointer-events: none;
+  padding: 0 16px;
+}
+
+.neon-title {
+  font-family: var(--font-cursive);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff9d7;
+  text-shadow: 
+    0 0 8px rgba(255, 215, 0, 0.9),
+    0 0 18px rgba(255, 180, 0, 0.8),
+    0 0 35px rgba(255, 140, 0, 0.6),
+    0 0 60px rgba(255, 120, 0, 0.4);
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation: neonPulse 3s ease-in-out infinite alternate;
+}
+
+.header-flower {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  display: inline-block;
+  animation: spinSlow 20s linear infinite;
+}
+
+.recipient-tag {
+  font-size: 0.88rem;
+  color: #e2d2f5;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.recipient-tag strong {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* ==========================================================================
+   PANTALLA INICIAL: TOCA PARA INICIAR (GIRASOL PULSANTE)
+   ========================================================================== */
+
+.start-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  background: radial-gradient(circle at center, rgba(30, 20, 5, 0.5) 0%, rgba(3, 3, 8, 0.95) 75%);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 1s ease;
+  cursor: pointer;
+}
+
+.start-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sunflower-portal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  transition: transform 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.portal-flower {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.85));
+  animation: flowerPulse 2.4s ease-in-out infinite alternate;
+}
+
+.portal-petals {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.portal-center {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d1f0c 0%, #170a02 70%, #080300 100%);
+  border: 2px dashed rgba(255, 215, 0, 0.7);
+  box-shadow: inset 0 0 10px #000, 0 0 15px rgba(255, 170, 0, 0.6);
+  z-index: 5;
+}
+
+.portal-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.28) 0%, rgba(255, 170, 0, 0) 70%);
+  animation: haloBreathe 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.touch-pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-15%, -20%);
+  z-index: 10;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+  animation: handTap 1.8s ease-in-out infinite;
+}
+
+.touch-hint {
+  margin-top: 35px;
+  font-family: var(--font-cursive);
+  font-size: 1.85rem;
+  color: #fff9e0;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   CAPA DE FRASES Y ELEMENTOS ORBITANTES
+   ========================================================================== */
+
+.orbit-elements-container {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease-out;
+}
+
+.orbit-elements-container.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.orbit-item {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 14, 26, 0.65);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: var(--font-cursive);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fffde6;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 215, 0, 0.2);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  white-space: nowrap;
+  transform-origin: center center;
+}
+
+.orbit-item:hover {
+  transform: scale(1.15);
+  background: rgba(255, 215, 0, 0.25);
+  border-color: #ffd700;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+  z-index: 30;
+}
+
+.orbit-flower-icon {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.9));
+}
+
+/* ==========================================================================
+   FLOR INFERIOR: ERES MI PERSONA FAVORITA
+   ========================================================================== */
+
+.bottom-hero-flower {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 1.5s ease-out 1s, transform 0.3s ease;
+}
+
+.bottom-hero-flower.active {
+  opacity: 1;
+}
+
+.hero-flower-phrase {
+  font-family: var(--font-cursive);
+  font-size: 1.6rem;
+  color: #fff9e2;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.hero-sunflower-interactive {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.25);
+}
+
+.hero-sunflower-interactive:hover {
+  transform: scale(1.18) rotate(6deg);
+  filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1));
+}
+
+.hero-petals {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-center {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d1f0c 0%, #150901 80%, #050200 100%);
+  border: 1.5px solid #ffd700;
+  z-index: 3;
+}
+
+.hero-flower-sub {
+  font-size: 0.72rem;
+  color: #c7b6de;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   MODAL DE LA TARJETA DE ROSAS AMARILLAS (CAPTURA DE WHATSAPP)
+   ========================================================================== */
+
+.rose-card-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 2, 7, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.rose-card-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.rose-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(155deg, #161320 0%, #0d0a14 70%, #08060d 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.45);
+  border-radius: 28px;
+  padding: 28px 24px 26px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.25);
+  transform: translateY(25px) scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.25);
+}
+
+.rose-card-backdrop.active .rose-card {
+  transform: translateY(0) scale(1);
+}
+
+.card-close-x {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #ba9fd9;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.card-close-x:hover {
+  color: #ffd700;
+  transform: scale(1.15);
+}
+
+.rose-bouquet-visual {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 12px;
+  filter: drop-shadow(0 8px 18px rgba(255, 215, 0, 0.35));
+}
+
+.rose-bouquet-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-title {
+  font-family: var(--font-cursive);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #fff6cb;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  margin-bottom: 4px;
+}
+
+.card-dedication-to {
+  font-size: 0.88rem;
+  color: #d1bfe3;
+  margin-bottom: 12px;
+}
+
+.card-dedication-to span {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.card-message {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #e6daf5;
+  margin-bottom: 22px;
+}
+
+.card-message-highlight {
+  display: block;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #ffe680;
+  margin-top: 8px;
+}
+
+.card-action-btn {
+  display: inline-block;
+  background: transparent;
+  border: 1.5px solid rgba(255, 215, 0, 0.6);
+  color: #fff9e6;
+  font-family: var(--font-cursive);
+  font-size: 1.4rem;
+  padding: 6px 36px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.card-action-btn:hover {
+  background: rgba(255, 215, 0, 0.25);
+  border-color: #ffd700;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   ANIMACIONES CLAVE
+   ========================================================================== */
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), 0 0 18px rgba(255, 180, 0, 0.6);
+  }
+  100% {
+    text-shadow: 0 0 14px rgba(255, 215, 0, 1), 0 0 28px rgba(255, 180, 0, 0.9), 0 0 45px rgba(255, 140, 0, 0.7);
+  }
+}
+
+@keyframes flowerPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes haloBreathe {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0.9; }
+}
+
+@keyframes handTap {
+  0%, 100% { transform: translate(-15%, -20%) scale(1); }
+  50% { transform: translate(-15%, -10%) scale(0.88); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD MÓVIL
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .neon-title {
+    font-size: 1.85rem;
+  }
+  .header-flower {
+    font-size: 1.6rem;
+  }
+  .galaxy-header {
+    top: 60px;
+  }
+  .bottom-hero-flower {
+    bottom: 15px;
+  }
+  .hero-flower-phrase {
+    font-size: 1.35rem;
+  }
+  .hero-sunflower-interactive {
+    width: 75px;
+    height: 75px;
+  }
+  .rose-card {
+    padding: 24px 18px 20px;
+  }
+  .rose-bouquet-visual {
+    width: 130px;
+    height: 130px;
+  }
+  .card-title {
+    font-size: 1.85rem;
+  }
+}

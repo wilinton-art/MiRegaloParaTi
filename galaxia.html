@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Galaxia Dorada de Flores Amarillas | Para Thalia Delina Julca Huaman 🌌🌻</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="galaxia.css">
+</head>
+<body>
+
+  <!-- Audio de Rosas Amarillas -->
+  <audio id="galaxy-audio" src="rosas.mpeg" preload="auto" loop></audio>
+
+  <!-- Botones de Control Superiores -->
+  <header class="top-nav">
+    <a href="index.html" class="nav-btn" title="Ir a la experiencia del Ramo">
+      <span class="btn-icon">🌻</span>
+      <span class="btn-text">Ver Ramo</span>
+    </a>
+    <div class="nav-right-group">
+      <button id="audio-toggle-btn" class="nav-btn" title="Controlar Música">
+        <span class="btn-icon">🎵</span>
+        <span class="btn-text">Música</span>
+      </button>
+      <button id="reset-galaxy-btn" class="nav-btn" title="Reiniciar animación">
+        <span class="btn-icon">🔄</span>
+        <span class="btn-text">Reiniciar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Canvas Principal de la Galaxia y Constelación -->
+  <canvas id="galaxy-canvas"></canvas>
+
+  <!-- Título Superior Brillante -->
+  <div class="galaxy-header" id="galaxy-header">
+    <h1 class="neon-title">
+      Feliz Día de las Flores Amarillas <span class="header-flower">🌻</span>
+    </h1>
+    <div class="recipient-tag">
+      Para mi persona favorita: <strong>Thalia Delina Julca Huaman</strong> ✨
+    </div>
+  </div>
+
+  <!-- PANTALLA INICIAL: TOCA PARA INICIAR -->
+  <div class="start-overlay" id="start-overlay">
+    <div class="sunflower-portal" id="sunflower-portal">
+      <div class="portal-flower">
+        <div class="portal-petals"></div>
+        <div class="portal-center"></div>
+      </div>
+      <div class="portal-glow"></div>
+      <div class="touch-pointer">
+        <svg class="hand-icon" viewBox="0 0 24 24" width="44" height="44">
+          <path fill="#ffffff" d="M12.5,1.5 C11.67,1.5 11,2.17 11,3 L11,9.5 L9.8,9.5 C8.97,9.5 8.3,10.17 8.3,11 L8.3,12.2 C8.3,12.6 8.46,12.98 8.74,13.26 L12.24,16.76 C12.52,17.04 12.9,17.2 13.3,17.2 L17.5,17.2 C18.6,17.2 19.5,16.3 19.5,15.2 L19.5,9.5 C19.5,8.67 18.83,8 18,8 C17.72,8 17.47,8.08 17.25,8.21 C17.03,7.49 16.36,7 15.55,7 C15.3,7 15.06,7.06 14.85,7.17 C14.62,6.48 13.97,6 13.2,6 C13.06,6 12.93,6.02 12.8,6.06 L12.5,1.5 Z"/>
+        </svg>
+      </div>
+      <p class="touch-hint">Toca para iniciar</p>
+    </div>
+  </div>
+
+  <!-- CAPA DE FRASES Y ELEMENTOS ORBITANTES -->
+  <div class="orbit-elements-container" id="orbit-elements-container">
+    <!-- Se generan dinámicamente y se posicionan sobre las órbitas 3D -->
+  </div>
+
+  <!-- FLOR INFERIOR: ERES MI PERSONA FAVORITA -->
+  <div class="bottom-hero-flower" id="bottom-hero-flower">
+    <p class="hero-flower-phrase">«Eres mi persona favorita»</p>
+    <div class="hero-sunflower-interactive" id="hero-sunflower-btn">
+      <div class="hero-petals"></div>
+      <div class="hero-center"></div>
+      <div class="hero-sparkle-halo"></div>
+    </div>
+    <span class="hero-flower-sub">Toca para ver tu dedicatoria especial 💌</span>
+  </div>
+
+  <!-- MODAL DE LA TARJETA DE ROSAS AMARILLAS -->
+  <div class="rose-card-backdrop" id="rose-card-modal">
+    <div class="rose-card">
+      <button class="card-close-x" id="card-close-x">&times;</button>
+      
+      <!-- Ilustración del Ramo de Rosas Amarillas -->
+      <div class="rose-bouquet-visual">
+        <svg viewBox="0 0 200 200" class="rose-bouquet-svg">
+          <!-- Tallos y lazo verde/dorado -->
+          <g class="stems-cluster">
+            <line x1="100" y1="110" x2="88" y2="180" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="110" x2="94" y2="185" stroke="#388e3c" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="110" x2="100" y2="188" stroke="#2e7d32" stroke-width="4.5" stroke-linecap="round"/>
+            <line x1="100" y1="110" x2="106" y2="185" stroke="#43a047" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="110" x2="112" y2="180" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <!-- Lazo Dorado -->
+          <g class="bouquet-bow">
+            <ellipse cx="100" cy="148" rx="8" ry="6" fill="#ffd700" stroke="#b8860b" stroke-width="1.5"/>
+            <path d="M100,148 C85,142 80,154 94,158 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+            <path d="M100,148 C115,142 120,154 106,158 Z" fill="#ffd700" stroke="#b8860b" stroke-width="1"/>
+            <path d="M96,152 Q90,175 88,182" stroke="#ffd700" stroke-width="2.5" fill="none"/>
+            <path d="M104,152 Q110,175 112,182" stroke="#ffd700" stroke-width="2.5" fill="none"/>
+          </g>
+          <!-- Hojas Verdes -->
+          <g class="rose-leaves">
+            <path d="M70,95 C55,85 55,115 75,105 Z" fill="#2e7d32"/>
+            <path d="M130,95 C145,85 145,115 125,105 Z" fill="#2e7d32"/>
+            <path d="M85,60 C75,45 60,65 80,72 Z" fill="#388e3c"/>
+            <path d="M115,60 C125,45 140,65 120,72 Z" fill="#388e3c"/>
+          </g>
+          <!-- Grupo de Rosas Amarillas Abiertas -->
+          <g class="roses-group">
+            <!-- Rosas de Fondo -->
+            <circle cx="78" cy="68" r="16" fill="#ffd54f" stroke="#ffa000" stroke-width="1.5"/>
+            <circle cx="122" cy="68" r="16" fill="#ffd54f" stroke="#ffa000" stroke-width="1.5"/>
+            <circle cx="100" cy="52" r="17" fill="#ffe082" stroke="#ffb300" stroke-width="1.5"/>
+            
+            <!-- Rosas Medias -->
+            <circle cx="68" cy="90" r="17" fill="#ffca28" stroke="#ff8f00" stroke-width="1.5"/>
+            <circle cx="132" cy="90" r="17" fill="#ffca28" stroke="#ff8f00" stroke-width="1.5"/>
+            <circle cx="90" cy="78" r="18" fill="#ffd700" stroke="#ffa000" stroke-width="1.5"/>
+            <circle cx="110" cy="78" r="18" fill="#ffd700" stroke="#ffa000" stroke-width="1.5"/>
+            
+            <!-- Rosas Frontales Principales -->
+            <circle cx="85" cy="100" r="17" fill="#ffe066" stroke="#ff9800" stroke-width="1.5"/>
+            <circle cx="115" cy="100" r="17" fill="#ffe066" stroke="#ff9800" stroke-width="1.5"/>
+            <circle cx="100" cy="95" r="19" fill="#fff176" stroke="#f57c00" stroke-width="1.8"/>
+
+            <!-- Espirales de pétalos interiores de las rosas -->
+            <path d="M100,90 C96,92 97,97 100,97 C103,97 104,93 100,91" stroke="#e65100" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M85,96 C82,98 83,101 85,101 C87,101 88,97 85,96" stroke="#e65100" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M115,96 C112,98 113,101 115,101 C117,101 118,97 115,96" stroke="#e65100" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M90,75 C88,76 88,79 90,79 C92,79 93,76 90,75" stroke="#e65100" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M110,75 C108,76 108,79 110,79 C112,79 113,76 110,75" stroke="#e65100" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M100,50 C98,51 98,53 100,53 C102,53 102,51 100,50" stroke="#e65100" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </g>
+          <!-- Destellos dorados en el ramo -->
+          <circle cx="100" cy="95" r="2.5" fill="#ffffff"/>
+          <circle cx="85" cy="70" r="2" fill="#ffffff"/>
+          <circle cx="120" cy="80" r="2" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <!-- Texto y Dedicatoria -->
+      <h2 class="card-title">Mi persona favorita</h2>
+      <div class="card-dedication-to">Para: <span>Thalia Delina Julca Huaman</span> 🌻</div>
+      <p class="card-message">
+        No hace falta un motivo especial.<br>
+        Cualquier día es mejor contigo cerca.<br>
+        <span class="card-message-highlight">«Que la luz de estas flores ilumine siempre tus días más bonitos.»</span>
+      </p>
+
+      <button class="card-action-btn" id="card-close-btn">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="galaxia.js"></script>
+</body>
+</html>

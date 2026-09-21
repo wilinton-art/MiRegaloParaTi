@@ -1,0 +1,1040 @@
+/* ==========================================================================
+   ESTILOS PREMIUM: RAMO DE FLORES AMARILLAS PARA THALIA DELINA JULCA HUAMAN
+   ========================================================================== */
+
+:root {
+  --bg-dark: #07070d;
+  --bg-glow: radial-gradient(circle at 50% 65%, rgba(60, 40, 15, 0.35) 0%, rgba(12, 10, 20, 0.8) 50%, #06050a 100%);
+  --gold-light: #fff3a1;
+  --gold-main: #ffd700;
+  --gold-deep: #ff9d00;
+  --gold-shadow: #b36b00;
+  --sunflower-brown: #251308;
+  --sunflower-dark: #120701;
+  --leaf-green-light: #55a630;
+  --leaf-green-main: #2b7a1f;
+  --leaf-green-dark: #14470d;
+  --paper-lilac-light: #e2cbfb;
+  --paper-lilac-main: #b892e8;
+  --paper-lilac-dark: #8c60cb;
+  --paper-lilac-shadow: #5c3b8f;
+  --font-script: 'Dancing Script', cursive;
+  --font-royal: 'Alex Brush', cursive;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  font-family: var(--font-body);
+  color: #ffffff;
+  position: relative;
+  user-select: none;
+}
+
+/* Canvas de fondo ambiental */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Botones superiores */
+.top-controls {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100;
+  display: flex;
+  gap: 10px;
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--gold-main);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+.control-btn:active {
+  transform: translateY(1px);
+}
+
+/* Contenedor de Escena */
+.scene-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  padding: 24px 16px 20px;
+  background: var(--bg-glow);
+}
+
+/* Encabezado */
+.header-section {
+  text-align: center;
+  z-index: 20;
+  margin-top: 10px;
+  animation: fadeInDown 1.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sparkle-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: #ffe066;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 4px 14px;
+  border-radius: 50px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.main-title {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #fff5b8 0%, #ffd700 50%, #ffa500 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 12px rgba(255, 215, 0, 0.45));
+  margin-bottom: 4px;
+}
+
+.sub-title {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #c4d7e8;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.recipient-name {
+  font-family: var(--font-royal), var(--font-script);
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 18px;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.18) 0%, rgba(255, 215, 0, 0) 70%);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+  text-shadow: 0 0 14px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 170, 0, 0.6);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  animation: pulseGlow 3s ease-in-out infinite alternate;
+}
+
+.name-sparkle {
+  color: var(--gold-main);
+  font-size: 1.1rem;
+  animation: spinSlow 6s linear infinite;
+}
+
+.tender-phrase {
+  font-size: 0.78rem;
+  color: #d1bfe3;
+  max-width: 360px;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   ESCENARIO DEL RAMO (BOUQUET STAGE)
+   ========================================================================== */
+
+.bouquet-stage {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 400px;
+  max-height: 520px;
+  perspective: 1000px;
+}
+
+/* Mariposas flotantes en 3D por toda la pantalla */
+.butterflies-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 80;
+  overflow: hidden;
+}
+
+.butterfly-wrapper {
+  position: absolute;
+  width: 38px;
+  height: 32px;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.85));
+  will-change: transform, left, top;
+}
+
+.butterfly-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bf-wing {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 26px;
+  background: radial-gradient(circle at 40% 40%, rgba(255, 250, 190, 0.95) 0%, rgba(255, 205, 30, 0.88) 50%, rgba(210, 130, 0, 0.7) 100%);
+  border: 1.5px solid rgba(255, 255, 240, 0.95);
+  border-radius: 65% 50% 25% 65%;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.7), 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+.bf-wing.left {
+  left: 0px;
+  transform-origin: right center;
+  animation: flapLeft 0.28s ease-in-out infinite alternate;
+}
+
+.bf-wing.right {
+  right: 0px;
+  border-radius: 50% 65% 65% 25%;
+  transform-origin: left center;
+  animation: flapRight 0.28s ease-in-out infinite alternate;
+}
+
+.bf-torso {
+  position: absolute;
+  width: 3.5px;
+  height: 20px;
+  background: #fff099;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #ffd700;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   EL RAMO DE GIRASOLES Y ENVOLTORIO
+   ========================================================================== */
+
+.bouquet-wrapper {
+  position: relative;
+  width: 380px;
+  height: 460px;
+  transform-origin: bottom center;
+  /* Estado inicial antes del florecimiento */
+  transform: translateY(120%) scale(0.65);
+  opacity: 0;
+  transition: transform 2.2s cubic-bezier(0.18, 0.89, 0.32, 1.05), opacity 1.2s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* Clase activada cuando florece */
+.bouquet-wrapper.bloomed {
+  transform: translateY(0%) scale(1);
+  opacity: 1;
+}
+
+/* Suave vaivén de brisa continua una vez florecido */
+.bouquet-wrapper.swaying {
+  animation: bouquetBreeze 6.5s ease-in-out infinite alternate;
+}
+
+/* ==========================================================================
+   TALLOS Y FOLLAJE
+   ========================================================================== */
+
+.stems-group {
+  position: absolute;
+  bottom: 40px;
+  width: 140px;
+  height: 220px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.stem {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to right, #1b5e20, #388e3c, #1b5e20);
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+.stem-1 { width: 9px; height: 210px; left: 65px; transform: rotate(-2deg); }
+.stem-2 { width: 8px; height: 180px; left: 45px; transform: rotate(-14deg); }
+.stem-3 { width: 8px; height: 180px; left: 85px; transform: rotate(12deg); }
+.stem-4 { width: 7px; height: 140px; left: 55px; transform: rotate(-7deg); }
+.stem-5 { width: 7px; height: 130px; left: 75px; transform: rotate(8deg); }
+
+.bouquet-foliage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.foliage-back { z-index: 5; }
+.foliage-front { z-index: 25; }
+
+.leaf {
+  position: absolute;
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 60%, #1b5e20 100%);
+  border-radius: 80% 0 80% 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35), inset 1px 1px 3px rgba(255, 255, 255, 0.3);
+  transform-origin: bottom left;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaf::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  transform: rotate(35deg);
+}
+
+.leaf-back-1 {
+  width: 60px;
+  height: 80px;
+  top: 100px;
+  left: 20px;
+  transform: rotate(-45deg);
+}
+
+.leaf-back-2 {
+  width: 65px;
+  height: 85px;
+  top: 90px;
+  right: 25px;
+  transform: rotate(65deg) scaleX(-1);
+}
+
+.leaf-back-3 {
+  width: 50px;
+  height: 70px;
+  top: 40px;
+  left: 60px;
+  transform: rotate(-25deg);
+}
+
+.leaf-back-4 {
+  width: 50px;
+  height: 70px;
+  top: 40px;
+  right: 60px;
+  transform: rotate(35deg) scaleX(-1);
+}
+
+.leaf-front-left {
+  width: 55px;
+  height: 75px;
+  top: 180px;
+  left: 40px;
+  transform: rotate(-60deg);
+}
+
+.leaf-front-right {
+  width: 55px;
+  height: 75px;
+  top: 185px;
+  right: 40px;
+  transform: rotate(50deg) scaleX(-1);
+}
+
+/* ==========================================================================
+   PAPEL DE ENVOLTORIO ORIGAMI (LILA / LAVANDA FACETADO)
+   ========================================================================== */
+
+/* Envoltorio Trasero */
+.origami-paper-back {
+  position: absolute;
+  bottom: 0;
+  width: 380px;
+  height: 340px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.origami-fold {
+  position: absolute;
+  bottom: 10px;
+  background: linear-gradient(135deg, #c7a9f2 0%, #9f74df 50%, #764db8 100%);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.45);
+}
+
+.origami-back-center {
+  left: 50px;
+  width: 280px;
+  height: 310px;
+  clip-path: polygon(50% 0%, 100% 28%, 78% 100%, 22% 100%, 0% 28%);
+  opacity: 0.95;
+}
+
+.origami-back-left {
+  left: 0px;
+  width: 180px;
+  height: 270px;
+  background: linear-gradient(150deg, #dfc6ff 0%, #b288ef 55%, #6a3ea8 100%);
+  clip-path: polygon(0% 12%, 100% 50%, 65% 100%, 18% 100%);
+  transform: rotate(-14deg);
+  opacity: 0.92;
+}
+
+.origami-back-right {
+  right: 0px;
+  width: 180px;
+  height: 270px;
+  background: linear-gradient(210deg, #d5b9fa 0%, #a275e3 55%, #5d339e 100%);
+  clip-path: polygon(100% 12%, 82% 100%, 35% 100%, 0% 50%);
+  transform: rotate(14deg);
+  opacity: 0.92;
+}
+
+/* Envoltorio Frontal */
+.origami-paper-front {
+  position: absolute;
+  bottom: 0;
+  width: 340px;
+  height: 240px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.origami-cone-center {
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  width: 240px;
+  height: 215px;
+  background: linear-gradient(175deg, rgba(240, 220, 255, 0.72) 0%, rgba(195, 155, 245, 0.76) 50%, rgba(140, 95, 205, 0.88) 100%);
+  clip-path: polygon(12% 0%, 88% 0%, 72% 100%, 28% 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 2px 10px rgba(255, 255, 255, 0.35);
+}
+
+.origami-wing {
+  position: absolute;
+  bottom: 15px;
+  transition: transform 1.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.origami-wing-left {
+  left: 20px;
+  width: 160px;
+  height: 195px;
+  background: linear-gradient(135deg, rgba(248, 235, 255, 0.82) 0%, rgba(190, 150, 245, 0.82) 50%, rgba(125, 80, 185, 0.92) 100%);
+  clip-path: polygon(0% 0%, 95% 45%, 65% 100%, 15% 95%);
+  box-shadow: 4px 6px 15px rgba(0, 0, 0, 0.3);
+  transform-origin: bottom left;
+}
+
+.origami-wing-right {
+  right: 20px;
+  width: 160px;
+  height: 195px;
+  background: linear-gradient(225deg, rgba(240, 225, 255, 0.82) 0%, rgba(175, 135, 235, 0.82) 50%, rgba(110, 70, 175, 0.92) 100%);
+  clip-path: polygon(100% 0%, 85% 95%, 35% 100%, 5% 45%);
+  box-shadow: -4px 6px 15px rgba(0, 0, 0, 0.3);
+  transform-origin: bottom right;
+}
+
+.origami-fold-accent {
+  position: absolute;
+  bottom: 25px;
+  left: 95px;
+  width: 150px;
+  height: 140px;
+  background: linear-gradient(180deg, rgba(255, 245, 255, 0.5) 0%, rgba(160, 120, 215, 0.15) 100%);
+  clip-path: polygon(50% 0%, 90% 100%, 10% 100%);
+}
+
+/* Lazo / Cinta dorada del ramo */
+.bouquet-ribbon {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 35px;
+  z-index: 35;
+}
+
+.ribbon-knot {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(135deg, #fff3a1 0%, #ffd700 60%, #b8860b 100%);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.ribbon-tail {
+  position: absolute;
+  top: 15px;
+  width: 12px;
+  height: 32px;
+  background: linear-gradient(to bottom, #ffd700, #daa520, #8b6508);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.ribbon-tail-left {
+  left: 18px;
+  transform: rotate(18deg);
+}
+
+.ribbon-tail-right {
+  right: 18px;
+  transform: rotate(-18deg);
+}
+
+/* ==========================================================================
+   CLUSTER DE GIRASOLES (FLOWERS CLUSTER)
+   ========================================================================== */
+
+.flowers-cluster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 320px;
+  z-index: 20;
+}
+
+.sunflower {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: filter 0.3s ease;
+}
+
+.sunflower:hover {
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+}
+
+/* Contenedor de la flor que escala y florece */
+.sunflower-bloom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0) rotate(-45deg);
+  opacity: 0;
+  transition: transform 1.6s cubic-bezier(0.18, 0.89, 0.32, 1.25), opacity 0.8s ease-out;
+  transform-origin: center center;
+}
+
+/* Estado florecido */
+.sunflower.bloomed .sunflower-bloom {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+/* Micro-animación de respiración en cada flor */
+.sunflower.bloomed:nth-child(odd) .sunflower-bloom {
+  animation: flowerBreathe1 5s ease-in-out infinite alternate;
+}
+.sunflower.bloomed:nth-child(even) .sunflower-bloom {
+  animation: flowerBreathe2 6s ease-in-out infinite alternate;
+}
+
+/* Posiciones de las 5 Flores (idénticas a la imagen) */
+.flower-top {
+  width: 145px;
+  height: 145px;
+  top: -8px;
+  left: 118px;
+  z-index: 18;
+  transform: rotate(6deg);
+}
+
+.flower-left {
+  width: 155px;
+  height: 155px;
+  top: 48px;
+  left: 18px;
+  z-index: 19;
+  transform: rotate(-14deg);
+}
+
+.flower-right {
+  width: 155px;
+  height: 155px;
+  top: 48px;
+  right: 18px;
+  z-index: 19;
+  transform: rotate(14deg);
+}
+
+.flower-center-main {
+  width: 175px;
+  height: 175px;
+  top: 82px;
+  left: 102px;
+  z-index: 22;
+}
+
+.flower-bottom {
+  width: 145px;
+  height: 145px;
+  top: 150px;
+  left: 118px;
+  z-index: 26;
+  transform: rotate(-3deg);
+}
+
+/* Pétalos de Girasol */
+.petals-outer, .petals-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  background: linear-gradient(to top, #ff8c00 0%, #ffae00 25%, #ffd700 75%, #fff275 100%);
+  border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  transform-origin: center bottom;
+}
+
+.petals-outer .petal {
+  width: 16px;
+  height: 60px;
+  bottom: 50%;
+  filter: drop-shadow(0 2px 4px rgba(180, 90, 0, 0.35));
+}
+
+.petals-inner .petal {
+  width: 14px;
+  height: 48px;
+  bottom: 50%;
+  background: linear-gradient(to top, #e67300 0%, #ffa500 35%, #ffea60 85%, #fff8bc 100%);
+  filter: drop-shadow(0 1px 3px rgba(120, 60, 0, 0.3));
+}
+
+/* Centro aterciopelado del girasol */
+.flower-center {
+  position: relative;
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.center-disc {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 45%, #3a1c09 0%, #200f04 60%, #0d0501 100%);
+}
+
+.center-florets {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background-image: 
+    radial-gradient(circle, #5c2f10 12%, transparent 13%),
+    radial-gradient(circle, #3d1c08 12%, transparent 13%);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+  opacity: 0.85;
+}
+
+.pollen-ring {
+  position: absolute;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  border: 3.5px dotted rgba(255, 215, 0, 0.85);
+  box-shadow: inset 0 0 6px rgba(255, 170, 0, 0.7), 0 0 8px rgba(255, 215, 0, 0.5);
+  animation: rotatePollen 30s linear infinite;
+}
+
+/* ==========================================================================
+   BOTÓN INFERIOR DE CARTA DE AMOR / AMISTAD
+   ========================================================================== */
+
+.action-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 25;
+  margin-bottom: 8px;
+}
+
+.letter-btn {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22) 0%, rgba(184, 146, 232, 0.25) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.6);
+  color: #ffffff;
+  padding: 12px 26px;
+  border-radius: 30px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 215, 0, 0.3);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+.letter-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: #ffd700;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5), 0 0 30px rgba(184, 146, 232, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.35) 0%, rgba(184, 146, 232, 0.35) 100%);
+}
+
+.letter-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.envelope-icon {
+  font-size: 1.25rem;
+  animation: bounceSlow 2.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   MODAL DE LA CARTA PARA THALIA
+   ========================================================================== */
+
+.letter-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 3, 8, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.letter-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.letter-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: linear-gradient(145deg, #1b1626 0%, #110d1c 60%, #0e0a17 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.5);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.25);
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.letter-modal-backdrop.active .letter-card {
+  transform: translateY(0) scale(1);
+}
+
+.close-letter-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #c4a7e7;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-letter-btn:hover {
+  color: #ffd700;
+  transform: scale(1.15) rotate(9deg);
+}
+
+.letter-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.letter-stamp {
+  font-size: 2.2rem;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px dashed rgba(255, 215, 0, 0.6);
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+
+.letter-to {
+  font-size: 1.05rem;
+  color: #f1e4ff;
+}
+
+.letter-to strong {
+  color: #ffd700;
+  font-size: 1.15rem;
+  display: block;
+}
+
+.letter-date {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #a48bbd;
+}
+
+.letter-body {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #e5d7f5;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.letter-opening {
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: #ffd700;
+}
+
+.letter-quote {
+  font-style: italic;
+  padding: 8px 14px;
+  border-left: 3px solid #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 0 8px 8px 0;
+  color: #fff4a3;
+}
+
+.letter-signature {
+  font-family: var(--font-script);
+  font-size: 1.35rem;
+  color: #ffd700;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.letter-actions {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-primary-btn {
+  background: linear-gradient(135deg, #ffd700, #ff9d00);
+  border: none;
+  color: #120701;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.modal-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+/* ==========================================================================
+   ANIMACIONES CLAVE
+   ========================================================================== */
+
+@keyframes flapLeft {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(70deg); }
+}
+
+@keyframes flapRight {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(-70deg); }
+}
+
+@keyframes bouquetBreeze {
+  0% { transform: translateY(0) rotate(-1.5deg) scale(1); }
+  50% { transform: translateY(-4px) rotate(1.8deg) scale(1.005); }
+  100% { transform: translateY(0) rotate(-1.5deg) scale(1); }
+}
+
+@keyframes flowerBreathe1 {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.03) rotate(2deg); }
+}
+
+@keyframes flowerBreathe2 {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.025) rotate(-2deg); }
+}
+
+@keyframes rotatePollen {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 12px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 170, 0, 0.4); }
+  100% { text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 35px rgba(255, 200, 50, 0.85); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD (MÓVIL Y ESCRITORIO)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.85rem;
+  }
+  .recipient-name {
+    font-size: 1.6rem;
+  }
+  .bouquet-stage {
+    min-height: 360px;
+    max-height: 460px;
+  }
+  .bouquet-wrapper {
+    width: 300px;
+    height: 390px;
+  }
+  .flower-top {
+    width: 115px;
+    height: 115px;
+    left: 92px;
+  }
+  .flower-left {
+    width: 125px;
+    height: 125px;
+    left: 10px;
+  }
+  .flower-right {
+    width: 125px;
+    height: 125px;
+    right: 10px;
+  }
+  .flower-center-main {
+    width: 140px;
+    height: 140px;
+    left: 80px;
+  }
+  .flower-bottom {
+    width: 110px;
+    height: 110px;
+    left: 95px;
+    top: 145px;
+  }
+}

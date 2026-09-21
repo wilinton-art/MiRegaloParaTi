@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Día de las Flores Amarillas | Para Thalia Delina Julca Huaman 🌻</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600&family=Alex+Brush&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fondo con estrellas y polen mágico -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Audio de rosas.mpeg -->
+  <audio id="bouquet-audio" src="rosas.mpeg" preload="auto" loop></audio>
+
+  <!-- Botones de acción flotantes superiores -->
+  <div class="top-controls">
+    <a href="galaxia.html" class="control-btn" title="Ver la Galaxia Cósmica de Flores Amarillas" style="text-decoration: none;">
+      <span class="btn-icon">🌌</span>
+      <span class="btn-text">Ver Galaxia</span>
+    </a>
+    <button id="music-toggle-btn" class="control-btn" title="Activar/Desactivar Música">
+      <span class="btn-icon">🎵</span>
+      <span class="btn-text">Música</span>
+    </button>
+    <button id="replay-btn" class="control-btn" title="Volver a ver florecer">
+      <span class="btn-icon">✨</span>
+      <span class="btn-text">Ver Florecer</span>
+    </button>
+  </div>
+
+  <!-- Mariposas doradas 3D revoloteando por toda la pantalla -->
+  <div class="butterflies-container" id="butterflies-container"></div>
+
+  <!-- Contenedor Principal de la Escena -->
+  <main class="scene-container">
+    
+    <!-- Encabezado con dedicatoria -->
+    <header class="header-section">
+      <div class="sparkle-badge">🌻 21 de Septiembre 🌻</div>
+      <h1 class="main-title">Feliz día de las flores amarillas</h1>
+      <h2 class="sub-title">Ten tu ramo bonita:</h2>
+      <div class="recipient-name" id="thalia-name">
+        <span class="name-sparkle">✨</span>
+        Thalia Delina Julca Huaman
+        <span class="name-sparkle">✨</span>
+      </div>
+      <p class="tender-phrase">«Que tu vida siempre florezca tan radiante, luminosa y hermosa como estos girasoles»</p>
+    </header>
+
+    <!-- Escenario del Ramo -->
+    <div class="bouquet-stage" id="bouquet-stage">
+
+      <!-- El Ramo de Girasoles -->
+      <div class="bouquet-wrapper" id="bouquet-wrapper">
+        
+        <!-- Hojas exteriores de fondo -->
+        <div class="bouquet-foliage foliage-back">
+          <div class="leaf leaf-back-1"></div>
+          <div class="leaf leaf-back-2"></div>
+          <div class="leaf leaf-back-3"></div>
+          <div class="leaf leaf-back-4"></div>
+        </div>
+
+        <!-- Papel de Origami Envoltorio Trasero (Lila / Lavanda) -->
+        <div class="origami-paper-back">
+          <div class="origami-fold origami-back-center"></div>
+          <div class="origami-fold origami-back-left"></div>
+          <div class="origami-fold origami-back-right"></div>
+        </div>
+
+        <!-- Tallos verdes conectados -->
+        <div class="stems-group">
+          <div class="stem stem-1"></div>
+          <div class="stem stem-2"></div>
+          <div class="stem stem-3"></div>
+          <div class="stem stem-4"></div>
+          <div class="stem stem-5"></div>
+        </div>
+
+        <!-- Capa de Flores (5 Girasoles idénticos a la composición de la imagen) -->
+        <div class="flowers-cluster" id="flowers-cluster">
+          <!-- Flor 1: Superior Central -->
+          <div class="sunflower flower-top" data-index="1">
+            <div class="sunflower-bloom">
+              <div class="petals-outer"></div>
+              <div class="petals-inner"></div>
+              <div class="flower-center">
+                <div class="center-disc"></div>
+                <div class="center-florets"></div>
+                <div class="pollen-ring"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flor 2: Izquierda Superior -->
+          <div class="sunflower flower-left" data-index="2">
+            <div class="sunflower-bloom">
+              <div class="petals-outer"></div>
+              <div class="petals-inner"></div>
+              <div class="flower-center">
+                <div class="center-disc"></div>
+                <div class="center-florets"></div>
+                <div class="pollen-ring"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flor 3: Derecha Superior -->
+          <div class="sunflower flower-right" data-index="3">
+            <div class="sunflower-bloom">
+              <div class="petals-outer"></div>
+              <div class="petals-inner"></div>
+              <div class="flower-center">
+                <div class="center-disc"></div>
+                <div class="center-florets"></div>
+                <div class="pollen-ring"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flor 4: Centro Principal (La más grande y resplandeciente) -->
+          <div class="sunflower flower-center-main" data-index="4">
+            <div class="sunflower-bloom">
+              <div class="petals-outer"></div>
+              <div class="petals-inner"></div>
+              <div class="flower-center">
+                <div class="center-disc"></div>
+                <div class="center-florets"></div>
+                <div class="pollen-ring"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flor 5: Frontal / Inferior entre los pliegues de papel -->
+          <div class="sunflower flower-bottom" data-index="5">
+            <div class="sunflower-bloom">
+              <div class="petals-outer"></div>
+              <div class="petals-inner"></div>
+              <div class="flower-center">
+                <div class="center-disc"></div>
+                <div class="center-florets"></div>
+                <div class="pollen-ring"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hojas frontales vivas -->
+        <div class="bouquet-foliage foliage-front">
+          <div class="leaf leaf-front-left"></div>
+          <div class="leaf leaf-front-right"></div>
+        </div>
+
+        <!-- Papel de Origami Envoltorio Frontal (Pliegues geométricos facetados) -->
+        <div class="origami-paper-front">
+          <div class="origami-wing origami-wing-left"></div>
+          <div class="origami-wing origami-wing-right"></div>
+          <div class="origami-wing origami-cone-center"></div>
+          <div class="origami-fold-accent"></div>
+          <!-- Cinta o Lazo del ramo -->
+          <div class="bouquet-ribbon">
+            <div class="ribbon-knot"></div>
+            <div class="ribbon-tail ribbon-tail-left"></div>
+            <div class="ribbon-tail ribbon-tail-right"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Botón inferior para abrir la carta especial -->
+    <div class="action-footer">
+      <button id="open-letter-btn" class="letter-btn">
+        <span class="envelope-icon">💌</span>
+        <span class="letter-btn-text">Toca para abrir tu mensaje especial</span>
+        <span class="sparkle-glow"></span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Modal / Tarjeta de Carta Emocional para Thalia -->
+  <div class="letter-modal-backdrop" id="letter-modal">
+    <div class="letter-card">
+      <button class="close-letter-btn" id="close-letter-btn" aria-label="Cerrar carta">&times;</button>
+      <div class="letter-header">
+        <span class="letter-stamp">🌻</span>
+        <div class="letter-to">Para: <strong>Thalia Delina Julca Huaman</strong></div>
+        <div class="letter-date">21 de Septiembre</div>
+      </div>
+      <div class="letter-body">
+        <p class="letter-opening">Querida Thalia,</p>
+        <p>Hoy es el <strong>Día de las Flores Amarillas</strong>, un día que simboliza luz, calidez, felicidad y el deseo sincero de que nunca falte una sonrisa en tu rostro.</p>
+        <p>Este ramo de girasoles virtuales fue creado especialmente para ti, floreciendo con cada detalle para recordarte lo hermosa, radiante y valiosa que eres.</p>
+        <p class="letter-quote">«Así como los girasoles siempre buscan y siguen la luz del sol, deseo que tu vida siempre esté llena de bendiciones, éxitos, momentos mágicos y muchísimos motivos para sonreír.»</p>
+        <p>Que todos tus sueños y metas florezcan con tanta fuerza y belleza como este ramo.</p>
+        <p class="letter-signature">¡Feliz día de las flores amarillas, hermosa! 💛✨</p>
+      </div>
+      <div class="letter-actions">
+        <button class="modal-primary-btn" id="modal-close-action">Cerrar con una sonrisa 😊</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
